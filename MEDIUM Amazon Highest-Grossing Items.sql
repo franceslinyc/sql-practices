@@ -1,3 +1,6 @@
+-- Highest-Grossing Items
+-- link: https://datalemur.com/questions/sql-highest-grossing
+
 -- Step 1 
 -- Calculate total spend per product within each category
 -- Rank product by total spending within each category from highest to lowest
