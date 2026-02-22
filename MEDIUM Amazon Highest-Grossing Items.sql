@@ -10,9 +10,9 @@ SELECT
   product, 
   SUM(spend) AS total_spend, 
   ---- Rank --------------------------
-  RANK() OVER (
-  PARTITION BY category 
-  ORDER BY SUM(spend) DESC) AS ranking 
+  RANK() OVER (                          -- RANK() -> Assign ranks 1, 2, 3, ...; OVER() -> Make RANK() a window function 
+  PARTITION BY category                  -- PARTITION BY  -> Decide how rows are divided into windows
+  ORDER BY SUM(spend) DESC) AS ranking   -- ORDER BY      -> Define how rows are sorted before ranking 
   ------------------------------------
 FROM product_spend
 WHERE EXTRACT(YEAR FROM transaction_date) = 2022
