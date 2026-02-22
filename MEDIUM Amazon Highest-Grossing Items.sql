@@ -36,9 +36,7 @@ WITH ranked_spending_cte AS (
     category, 
     product, 
     SUM(spend) AS total_spend,
-    RANK() OVER (
-      PARTITION BY category 
-      ORDER BY SUM(spend) DESC) AS ranking 
+    RANK() OVER (PARTITION BY category ORDER BY SUM(spend) DESC) AS ranking 
   FROM product_spend
   WHERE EXTRACT(YEAR FROM transaction_date) = 2022
   GROUP BY category, product
@@ -51,9 +49,7 @@ WITH ranked_spending_cte AS (
     category, 
     product, 
     SUM(spend) AS total_spend,
-    RANK() OVER (
-      PARTITION BY category 
-      ORDER BY SUM(spend) DESC) AS ranking 
+    RANK() OVER (PARTITION BY category ORDER BY SUM(spend) DESC) AS ranking 
   FROM product_spend
   WHERE EXTRACT(YEAR FROM transaction_date) = 2022
   GROUP BY category, product
