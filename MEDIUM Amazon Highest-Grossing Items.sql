@@ -23,7 +23,7 @@ SELECT
   RANK() OVER (                            -- RANK() -> Assign ranks 1, 2, 3, ...; OVER() -> Make RANK() a window function 
     PARTITION BY category                  -- PARTITION BY  -> Decide how rows are divided into windows
     ORDER BY SUM(spend) DESC) AS ranking   -- ORDER BY      -> Define how rows are sorted before ranking 
-                                           -- Careful! ORDER BY SUM(spend)
+                                           -- Careful! ORDER BY Cannot use total_spend yet because SQL evaluate all SELECT expressions together
   ------------------------------------
 FROM product_spend
 WHERE EXTRACT(YEAR FROM transaction_date) = 2022
