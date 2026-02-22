@@ -42,7 +42,8 @@ WITH ranked_spending_cte AS (
   GROUP BY category, product
 )
 
--- Step 3 Return only the top 2 highest-grossing products per category 
+-- Step 3 
+-- Return only the top 2 highest-grossing products per category 
 
 WITH ranked_spending_cte AS (
   SELECT 
