@@ -1,9 +1,19 @@
 -- Highest-Grossing Items
 -- link: https://datalemur.com/questions/sql-highest-grossing
 
--- Step 1 
--- Calculate total spend per product within each category
--- Rank product by total spending within each category from highest to lowest
+-- Step 1
+-- Calculate total spend by category and product
+
+SELECT 
+  category, 
+  product, 
+  SUM(spend) AS total_spend, 
+FROM product_spend
+WHERE EXTRACT(YEAR FROM transaction_date) = 2022
+GROUP BY category, product;
+
+-- Step 2 
+-- Rank product by total spend within each category from highest to lowest
 
 SELECT 
   category, 
@@ -13,12 +23,13 @@ SELECT
   RANK() OVER (                          -- RANK() -> Assign ranks 1, 2, 3, ...; OVER() -> Make RANK() a window function 
   PARTITION BY category                  -- PARTITION BY  -> Decide how rows are divided into windows
   ORDER BY SUM(spend) DESC) AS ranking   -- ORDER BY      -> Define how rows are sorted before ranking 
+                                         -- Careful! ORDER BY SUM(spend)
   ------------------------------------
 FROM product_spend
 WHERE EXTRACT(YEAR FROM transaction_date) = 2022
 GROUP BY category, product;
 
--- Step 2 Create a tmp table using CTE 
+-- Step 2 Use a CTE to create a tmp table
 
 WITH ranked_spending_cte AS (
   SELECT 
@@ -47,7 +58,7 @@ WITH ranked_spending_cte AS (
   WHERE EXTRACT(YEAR FROM transaction_date) = 2022
   GROUP BY category, product
 )
-SELECT 
+SELECT                     -- Run SELECT on CTE
   category, 
   product, 
   total_spend 
