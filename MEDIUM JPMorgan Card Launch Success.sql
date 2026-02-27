@@ -27,7 +27,7 @@ FROM monthly_cards_issued;
 -- Step 3
 -- Use a CTE to create a tmp table
 
-WITH card_launch AS (
+WITH tmp AS (
   SELECT 
     card_name,
     issued_amount,
@@ -40,7 +40,7 @@ WITH card_launch AS (
 -- Select records 
 -- Order result from highest to lowest
 
-WITH card_launch AS (
+WITH tmp AS (
   SELECT 
     card_name,
     issued_amount,
@@ -51,7 +51,7 @@ WITH card_launch AS (
 SELECT 
   card_name, 
   issued_amount
-FROM card_launch
-WHERE issue_date = launch_date
-ORDER BY issued_amount DESC;
+FROM tmp
+WHERE issue_date = launch_date -- Only look at launch month (first month each card was issued)
+ORDER BY issued_amount DESC;   -- Order result from largest to smallest
 
