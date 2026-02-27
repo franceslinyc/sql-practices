@@ -55,10 +55,10 @@ WITH ranked_spending_cte AS (
   WHERE EXTRACT(YEAR FROM transaction_date) = 2022
   GROUP BY category, product
 )
-SELECT                     -- Run SELECT on CTE
+SELECT                      -- Run SELECT on CTE
   category, 
   product, 
   total_spend 
 FROM ranked_spending_cte 
-WHERE ranking <= 2         -- Filter to top 2 per category
-ORDER BY category, ranking;
+WHERE ranking <= 2          -- Filter to top 2 per category
+ORDER BY category, ranking; -- Careful! 
