@@ -31,7 +31,7 @@ GROUP BY category, product;
 
 -- Step 2 Use a CTE to create a tmp table
 
-WITH ranked_spending_cte AS (
+WITH tmp AS (
   SELECT 
     category, 
     product, 
@@ -45,7 +45,7 @@ WITH ranked_spending_cte AS (
 -- Step 3 
 -- Return only the top 2 highest-grossing products per category 
 
-WITH ranked_spending_cte AS (
+WITH tmp AS (
   SELECT 
     category, 
     product, 
@@ -59,6 +59,6 @@ SELECT                      -- Run SELECT on CTE
   category, 
   product, 
   total_spend 
-FROM ranked_spending_cte 
+FROM tmp 
 WHERE ranking <= 2          -- Filter to top 2 per category
 ORDER BY category, ranking; -- Careful! 
