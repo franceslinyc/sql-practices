@@ -48,4 +48,4 @@ SELECT
   -- SUM(CASE WHEN measurement_num % 2 != 0 THEN measurement_value ELSE 0 END) AS odd_sum,
   -- SUM(CASE WHEN measurement_num % 2 = 0 THEN measurement_value ELSE 0 END) AS even_sum
 FROM cte
-GROUP BY measurement_day; 
+GROUP BY measurement_day; -- Careful! 
