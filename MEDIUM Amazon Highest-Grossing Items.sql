@@ -7,7 +7,7 @@
 SELECT 
   category, 
   product, 
-  SUM(spend) AS total_spend, 
+  SUM(spend) AS total_spend
 FROM product_spend
 WHERE EXTRACT(YEAR FROM transaction_date) = 2022
 GROUP BY category, product;
