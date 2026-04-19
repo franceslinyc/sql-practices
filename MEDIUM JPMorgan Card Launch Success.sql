@@ -7,11 +7,12 @@
 SELECT     
   card_name,
   issued_amount,
-  MAKE_DATE(issue_year, issue_month, 1) AS issue_date
+  MAKE_DATE(issue_year, issue_month, 1) AS issue_date -- e.g., 2021-02-01 00:00:00
+                                                      -- 1 because we do not have issue_day
 FROM monthly_cards_issued;
 
 -- Step 2
--- Obtain launch date
+-- Create launch date
 
 SELECT 
   card_name,
@@ -37,8 +38,8 @@ WITH tmp AS (
 )
 
 -- Step 4
--- Select records 
--- Order result from highest to lowest
+-- Select only records from each card’s launch month
+-- Return results from highest to lowest issued amount
 
 WITH tmp AS (
   SELECT 
@@ -55,3 +56,10 @@ FROM tmp
 WHERE issue_date = launch_date -- Only look at launch month (first month each card was issued)
 ORDER BY issued_amount DESC;   -- Order result from largest to smallest
 
+
+-- Pattern recognition:
+-- “First occurrence per group” -> window function: MIN() OVER (PARTITION BY ...)
+-- Need filtering -> wrap in CTE
+
+-- Steps:
+-- BUILD DATE for issue date -> WINDOW FUNCTION: MIN() for launch date -> CTE -> FILTER -> ORDER
