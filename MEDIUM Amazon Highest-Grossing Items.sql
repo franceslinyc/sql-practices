@@ -62,6 +62,7 @@ SELECT                      -- Run SELECT on CTE
 FROM tmp 
 WHERE ranking <= 2          -- Filter to top 2 per category
 ORDER BY category, ranking; -- Careful! 
+                            -- May not need this line? 
 
 
 -- Pattern recognition:
