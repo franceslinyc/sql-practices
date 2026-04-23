@@ -10,15 +10,16 @@ SELECT
   measurement_value, 
   ---- Rank but with unique rank -----
   ROW_NUMBER() OVER (                                  -- ROW_NUMBER(), unlike RANK(), assign a unique sequential number to each row within a window
-    PARTITION BY CAST(measurement_time AS DATE)        -- Again! ROW_NUMBER cannot use measurement_day yet
-    ORDER BY measurement_time) AS measurement_num 
+    PARTITION BY CAST(measurement_time AS DATE)        -- PARTITION BY  -> Decide how rows are divided into windows
+    ORDER BY measurement_time) AS measurement_num      -- ORDER BY      -> Define how rows are sorted before ranking 
+                                                       
   ------------------------------------
 FROM measurements; 
 
 -- Step 2
 -- Use a CTE to create a tmp table
 
-WITH cte AS(
+WITH tmp AS(
   SELECT 
     CAST(measurement_time AS DATE) AS measurement_day, 
     measurement_value, 
@@ -31,7 +32,7 @@ WITH cte AS(
 -- Step 3
 -- Filter and sum 
 
-WITH cte AS (
+WITH tmp AS (
   SELECT 
     CAST(measurement_time AS DATE) AS measurement_day, 
     measurement_value, 
@@ -47,5 +48,5 @@ SELECT
   ---- This works too ---- 
   -- SUM(CASE WHEN measurement_num % 2 != 0 THEN measurement_value ELSE 0 END) AS odd_sum,
   -- SUM(CASE WHEN measurement_num % 2 = 0 THEN measurement_value ELSE 0 END) AS even_sum
-FROM cte
+FROM tmp
 GROUP BY measurement_day; -- Careful! 
