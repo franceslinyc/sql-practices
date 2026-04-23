@@ -58,7 +58,7 @@ ORDER BY issued_amount DESC;   -- Order result from largest to smallest
 
 
 -- Pattern recognition:
--- “First occurrence per group” -> window function: MIN() OVER (PARTITION BY ...)
+-- “First occurrence per group” -> window function: MIN(...) OVER (PARTITION BY ...)
 -- Need filtering -> wrap in CTE
 
 -- Steps:
