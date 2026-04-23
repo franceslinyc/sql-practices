@@ -6,7 +6,7 @@
 -- Create measurement num
 
 SELECT 
-  CAST(measurement_time AS DATE) AS measurement_day,   -- CAST() turn TIMESTAMP to DATE
+  CAST(measurement_time AS DATE) AS measurement_day,   -- CAST(... AS DATE) turn TIMESTAMP to DATE
   measurement_value, 
   ---- Rank but with unique rank -----
   ROW_NUMBER() OVER (                                  -- ROW_NUMBER(), unlike RANK(), assign a unique sequential number to each row within a window
