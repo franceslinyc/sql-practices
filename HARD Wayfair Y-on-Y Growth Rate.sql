@@ -59,14 +59,10 @@ WITH tmp AS (
         EXTRACT(YEAR FROM transaction_date)) AS prev_year_spend 
   FROM user_transactions
 )
-
 SELECT 
   year,
   product_id, 
   curr_year_spend, 
   prev_year_spend, 
-  ROUND(100 *                             -- Year-on-Year Growth Rate = ((Current Year's Spend - Previous Year’s Spend) / Previous Year’s Spend) x 100
-    (curr_year_spend - prev_year_spend)
-    / prev_year_spend
-  , 2) AS yoy_rate 
+  ROUND((curr_year_spend - prev_year_spend) * 100 / prev_year_spend, 2) AS yoy_rate 
 FROM tmp;
