@@ -14,7 +14,7 @@ SELECT
     description,
     SUM(unitprice * quantity) AS total_paid,
     RANK() OVER (PARTITION BY EXTRACT(MONTH FROM invoicedate)
-                    ORDER BY SUM(unitprice * quantity) DESC
+                 ORDER BY SUM(unitprice * quantity) DESC
                 ) AS ranking
 FROM online_retail
 WHERE quantity > 0
