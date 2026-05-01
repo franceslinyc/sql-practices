@@ -67,14 +67,14 @@ WITH history AS (
     COUNT(song_id) AS song_plays
   FROM songs_weekly
   WHERE listen_time <= '08/04/2022 23:59:59'
-  GROUP BY user_id, song_id
+  GROUP BY user_id, song_id -- Careful! Every non-aggregated column must be in a GROUP BY. 
 )
 SELECT 
   user_id, 
   song_id, 
   SUM(song_plays) AS song_count
 FROM history
-GROUP BY              -- Again! Every non-aggregated column must be in a GROUP BY. 
+GROUP BY                    -- Again! Every non-aggregated column must be in a GROUP BY. 
   user_id, 
   song_id
 ORDER BY song_count DESC;
