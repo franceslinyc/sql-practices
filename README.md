@@ -1,12 +1,12 @@
 # sql-practices
 SQL practices through VS Code 
 
-Link to DataLemur LearnSQL: [link](https://datalemur.com/sql-tutorial)
-
 Link to DataLemur Practice Interview Questions: [link](https://datalemur.com/questions)
+
+Link to StrataScratch Analytical Questions: [link](https://platform.stratascratch.com/coding)
 
 Currently doing 
 
-- Going through SQL Tutorial > Intermediate SQL 
+- DataLemur Practice Interview Questions
 
-- Going through SQL Tutorial > Advanced SQL 
+- StrataScratch Analytical Questions 
