@@ -82,6 +82,40 @@ INNER JOIN lowest
   AND lowest.row_num = 1  -- Lowest open price
 ORDER BY highest.ticker;
 
+-- Step 4
+-- Join CTEs 
+-- Filter the results to include only rows where the row number in both CTEs is equal to 1
+
+WITH highest AS (SELECT 
+    ticker,
+    TO_CHAR(date, 'Mon-YYYY') AS highest_mth,
+    --MAX(open) AS highest_open,
+    open AS highest_open,
+    ROW_NUMBER() OVER (PARTITION BY ticker ORDER BY open DESC) AS row_num
+  FROM stock_prices
+  GROUP BY ticker, TO_CHAR(date, 'Mon-YYYY'), open
+), 
+lowest AS (SELECT 
+    ticker,
+    TO_CHAR(date, 'Mon-YYYY') AS lowest_mth, 
+    --MIN(open) AS lowest_open,
+    open AS lowest_open,
+    ROW_NUMBER() OVER (PARTITION BY ticker ORDER BY open) AS row_num
+  FROM stock_prices
+  GROUP BY ticker, TO_CHAR(date, 'Mon-YYYY'), open
+) 
+SELECT
+  highest.ticker,
+  highest.highest_mth,
+  highest.highest_open,
+  lowest.lowest_mth,
+  lowest.lowest_open
+FROM highest
+INNER JOIN lowest
+  ON highest.ticker = lowest.ticker
+  AND highest.row_num = 1 -- Highest open price
+  AND lowest.row_num = 1  -- Lowest open price
+ORDER BY highest.ticker;
 
 
 
