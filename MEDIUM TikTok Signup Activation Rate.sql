@@ -15,9 +15,7 @@ LEFT JOIN texts
 -- AND includs only matching confirmed texts 
 
 -- Step 2
--- Calculate the signup activation rate for specified user, where activation rate = total confirmations / total unique users
--- COUNT(texts.email_id) to get total confirmed text events
--- COUNT(DISTINCT emails.email_id) to get total unique users
+-- Calculate the signup activation rate for specified user, where activation rate = total confirmed text events / total (unique) users
 
 SELECT 
   COUNT(texts.email_id)
@@ -45,7 +43,7 @@ LEFT JOIN texts
 
 SELECT 
   ROUND(COUNT(texts.email_id)::DECIMAL
-    / COUNT(DISTINCT emails.email_id),2) AS activation_rate
+    / COUNT(DISTINCT emails.email_id), 2) AS activation_rate
 FROM emails
 LEFT JOIN texts
   ON emails.email_id = texts.email_id
