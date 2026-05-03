@@ -154,7 +154,8 @@ WITH monthly_comments AS(
            d.total_comments AS dec_comments,
            j.total_comments AS jan_comments
     FROM december_rank d
-    JOIN january_rank j USING (country) -- Match rows where country name is the same in both tables
+    JOIN january_rank j on d.country = j.country -- Match rows where country name is the same in both tables
+    -- JOIN january_rank j USING (country) 
 )
 SELECT country
 FROM rank_compare
