@@ -30,17 +30,17 @@ SELECT
     'bear' AS word,
     COUNT(*) AS nentry
 FROM google_file_store,
-     LATERAL regexp_matches(LOWER(CONTENTS), '\m(bear)\M', 'g') 
+     LATERAL REGEXP_MATCHES(LOWER(CONTENTS), '\m(bear)\M', 'g') 
 
 -- Step 4
--- Stack both counts into a single two-row result using UNION ALL
+-- Show both word counts
 
 SELECT 'bull' AS word,
        COUNT(*) AS nentry
 FROM google_file_store,
-     LATERAL regexp_matches(LOWER(CONTENTS), '\m(bull)\M', 'g')
+     LATERAL REGEXP_MATCHES(LOWER(CONTENTS), '\m(bull)\M', 'g')
 UNION ALL 
 SELECT 'bear' AS word,
        COUNT(*) AS nentry
 FROM google_file_store,
-     LATERAL regexp_matches(LOWER(CONTENTS), '\m(bear)\M', 'g');
+     LATERAL REGEXP_MATCHES(LOWER(CONTENTS), '\m(bear)\M', 'g');
